@@ -13,7 +13,7 @@
 	<img alt="Dango" src="${path}/img/Logo.png">
 </header>
 <P>  The time on the server is ${serverTime}. </P>
-<a href="member/login.do">로그인</a>
+<a href="member/login">로그인</a>
 <input type="text" value="">
 <footer>
 

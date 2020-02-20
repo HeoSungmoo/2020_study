@@ -10,7 +10,7 @@
 <header>
 </header>
 
-<form method="post" action="/member/login">
+<form method="post" action="/member/login.do">
 <input type="text" id="id" name="id">
 <input type="password" id="pw" name="pw">
 <input type="submit" id="loginBtn" name="loginBtn" value="로그인">
