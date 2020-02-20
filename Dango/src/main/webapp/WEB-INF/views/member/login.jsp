@@ -8,17 +8,15 @@
 </head>
 <body>
 <header>
-	<%@ include file="../include/header.jsp" %>
 </header>
 
 <form method="post" action="/member/login">
 <input type="text" id="id" name="id">
 <input type="password" id="pw" name="pw">
-<input type="submit" id="loginBtn" name="loginBtn">
+<input type="submit" id="loginBtn" name="loginBtn" value="로그인">
 <a href="">ID/PW 찾기</a>
 </form>
 <footer>
-	<%@ include file="../include/footer.jsp" %>
 </footer>
 </body>
 </html>
