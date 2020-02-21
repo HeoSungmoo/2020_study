@@ -1,62 +1,69 @@
 package com.dango.hsm.model.member.dto;
 
 public class MemberDTO {
-	String id;
-	String pw;
-	String name;
-	String phone;
-	String mail;
-	String address;
-	int bigpoint;
-	int middlepoint;
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getPw() {
-		return pw;
-	}
-	public void setPw(String pw) {
-		this.pw = pw;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	public String getMail() {
-		return mail;
-	}
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public int getBigpoint() {
-		return bigpoint;
-	}
-	public void setBigpoint(int bigpoint) {
-		this.bigpoint = bigpoint;
-	}
-	public int getMiddlepoint() {
-		return middlepoint;
-	}
-	public void setMiddlepoint(int middlepoint) {
-		this.middlepoint = middlepoint;
-	}
+	String memberId;
+	String memberPw;
+	String memberName;
+	String memberPhone;
+	String memberMail;
+	String memberAddress;
+	int memberBp;
+	int memberMp;
 	
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+	public String getMemberPw() {
+		return memberPw;
+	}
+	public void setMemberPw(String memberPw) {
+		this.memberPw = memberPw;
+	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+	public String getMemberPhone() {
+		return memberPhone;
+	}
+	public void setMemberPhone(String memberPhone) {
+		this.memberPhone = memberPhone;
+	}
+	public String getMemberMail() {
+		return memberMail;
+	}
+	public void setMemberMail(String memberMail) {
+		this.memberMail = memberMail;
+	}
+	public String getMemberAddress() {
+		return memberAddress;
+	}
+	public void setMemberAddress(String memberAddress) {
+		this.memberAddress = memberAddress;
+	}
+	public int getMemberBp() {
+		return memberBp;
+	}
+	public void setMemberBp(int memberBp) {
+		this.memberBp = memberBp;
+	}
+	public int getMemberMp() {
+		return memberMp;
+	}
+	public void setMemberMp(int memberMp) {
+		this.memberMp = memberMp;
+	}
+	@Override
+	public String toString() {
+		return "MemberDTO [memberId=" + memberId + ", memberPw=" + memberPw + ", memberName=" + memberName
+				+ ", memberPhone=" + memberPhone + ", memberMail=" + memberMail + ", memberAddress=" + memberAddress
+				+ ", memberBp=" + memberBp + ", memberMp=" + memberMp + "]";
+	}
+
 	
 }

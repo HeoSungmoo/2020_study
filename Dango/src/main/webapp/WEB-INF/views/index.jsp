@@ -5,16 +5,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Dango</title>
+<title>당고</title>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 </head>
 <body>
+
 <header>
-	<img alt="Dango" src="${path}/img/Logo.png">
+	<a href="${path}"><img alt="Dango" src="${path}/img/Logo.png"></a>
 </header>
+
 <P>  The time on the server is ${serverTime}. </P>
-<a href="member/login">로그인</a>
-<input type="text" value="">
+<a href="member/login.do">로그인</a>
+<a href="member/join.do">회원가입</a>
+
 <footer>
 
 </footer>
