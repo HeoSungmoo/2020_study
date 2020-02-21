@@ -1,68 +1,66 @@
 package com.dango.hsm.model.member.dto;
 
 public class MemberDTO {
-	String memberId;
-	String memberPw;
-	String memberName;
-	String memberPhone;
-	String memberMail;
-	String memberAddress;
-	int memberBp;
-	int memberMp;
-	
-	public String getMemberId() {
-		return memberId;
+	String id;
+	String pw;
+	String name;
+	String phone;
+	String mail;
+	String address;
+	int bp;
+	int mp;
+	public String getId() {
+		return id;
 	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setId(String id) {
+		this.id = id;
 	}
-	public String getMemberPw() {
-		return memberPw;
+	public String getPw() {
+		return pw;
 	}
-	public void setMemberPw(String memberPw) {
-		this.memberPw = memberPw;
+	public void setPw(String pw) {
+		this.pw = pw;
 	}
-	public String getMemberName() {
-		return memberName;
+	public String getName() {
+		return name;
 	}
-	public void setMemberName(String memberName) {
-		this.memberName = memberName;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getMemberPhone() {
-		return memberPhone;
+	public String getPhone() {
+		return phone;
 	}
-	public void setMemberPhone(String memberPhone) {
-		this.memberPhone = memberPhone;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
-	public String getMemberMail() {
-		return memberMail;
+	public String getMail() {
+		return mail;
 	}
-	public void setMemberMail(String memberMail) {
-		this.memberMail = memberMail;
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
-	public String getMemberAddress() {
-		return memberAddress;
+	public String getAddress() {
+		return address;
 	}
-	public void setMemberAddress(String memberAddress) {
-		this.memberAddress = memberAddress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
-	public int getMemberBp() {
-		return memberBp;
+	public int getBp() {
+		return bp;
 	}
-	public void setMemberBp(int memberBp) {
-		this.memberBp = memberBp;
+	public void setBp(int bp) {
+		this.bp = bp;
 	}
-	public int getMemberMp() {
-		return memberMp;
+	public int getMp() {
+		return mp;
 	}
-	public void setMemberMp(int memberMp) {
-		this.memberMp = memberMp;
+	public void setMp(int mp) {
+		this.mp = mp;
 	}
 	@Override
 	public String toString() {
-		return "MemberDTO [memberId=" + memberId + ", memberPw=" + memberPw + ", memberName=" + memberName
-				+ ", memberPhone=" + memberPhone + ", memberMail=" + memberMail + ", memberAddress=" + memberAddress
-				+ ", memberBp=" + memberBp + ", memberMp=" + memberMp + "]";
+		return "MemberDTO [id=" + id + ", pw=" + pw + ", name=" + name + ", phone=" + phone + ", mail=" + mail
+				+ ", address=" + address + ", bp=" + bp + ", mp=" + mp + "]";
 	}
 
 	

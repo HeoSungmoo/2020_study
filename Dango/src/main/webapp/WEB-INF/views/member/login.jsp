@@ -7,18 +7,18 @@
 <meta charset="UTF-8">
 <title>당고 : 로그인</title>
 <c:set var="path" value="${pageContext.request.contextPath}"></c:set>
-<script src="http://code.jquery.com/jquery-latest.min.js"> </script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 $(function(){
 	$("#loginBtn").click(function(){
-		var memberId = $("#id").val();
-		var memberPw = $("#pw").val();
+		var id = $("#id").val();
+		var pw = $("#pw").val();
 		
-		if(memberId == ""){
+		if(id == ""){
 			alert("아이디를 입력해주세요");
 			$("#id").focus();
 			return;
-		} else if(memberPw == ""){
+		} else if(pw == ""){
 			alert("패스워드를 입력해주세요");
 			$("#pw").focus();
 			return;
@@ -26,12 +26,13 @@ $(function(){
 		$.ajax({
 			url : '${path}/member/loginCheck',
 			type : 'post',
-			data : 'memberId='+memberId+'&MemberPw='+memberPw,
+			data : 'id='+id+'&pw='+pw,
 			success : function(data){
 				if(data == "O"){
-					alert("로그인 성공");
+					location.href='${path}';
 				} else if(data == "X"){
 					alert("아이디 혹은 패스워드가 틀립니다.");
+					location.reload();
 				} else{
 					alert("로그인 에러 관리자에게 문의.")
 				}

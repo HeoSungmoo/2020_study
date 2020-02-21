@@ -1,6 +1,7 @@
 package com.dango.hsm.service.member;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,11 @@ public class MemberServiceImpl implements MemberService {
 	MemberDAO memberDao;
 	
 	@Override
-	public String loginCheck(MemberDTO dto) {
-		return memberDao.loginCheck(dto);
+	public String loginCheck(MemberDTO dto, HttpSession session) {
+		if(memberDao.loginCheck(dto) == 1){
+			session.setAttribute("id", dto.getId());
+			return dto.getId();
+		}
+		return "";
 	}
 }

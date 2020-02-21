@@ -1,6 +1,7 @@
 package com.dango.hsm.controller.member;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,15 +23,19 @@ public class MemberController {
 	
 	@RequestMapping("/member/loginCheck")
 	@ResponseBody
-	public String loginCheck(MemberDTO dto) {
-		String check = memberService.loginCheck(dto);
-		if(check.equals(dto.getMemberId())) {
-			System.out.println(check);
+	public String loginCheck(MemberDTO dto, HttpSession session) {
+		String check = memberService.loginCheck(dto, session);
+		if(check.equals(dto.getId())) {
 			return "O";
 		} else {
-			System.out.println(check);
 			return "X";
 		}
+	}
+	
+	@RequestMapping("/member/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
 	}
 	
 	@RequestMapping("/member/join.do")
