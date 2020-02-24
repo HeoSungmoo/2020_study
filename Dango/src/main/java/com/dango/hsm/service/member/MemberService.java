@@ -6,5 +6,6 @@ import com.dango.hsm.model.member.dto.MemberDTO;
 
 public interface MemberService {
 	
-	public String loginCheck(MemberDTO dto, HttpSession session);
+	public int loginCheck(MemberDTO dto, HttpSession session);// 로그인 체크
+	public int idCheck(String id);// 아이디 중복확인
 }

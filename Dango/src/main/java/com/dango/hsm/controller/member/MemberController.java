@@ -16,30 +16,46 @@ public class MemberController {
 	@Inject
 	MemberService memberService;
 	
+	// 로그인 페이지 이동
 	@RequestMapping("/member/login.do")
 	public String login() {
 		return "member/login";
 	}
 	
+	// 로그인 체크
 	@RequestMapping("/member/loginCheck")
 	@ResponseBody
 	public String loginCheck(MemberDTO dto, HttpSession session) {
-		String check = memberService.loginCheck(dto, session);
-		if(check.equals(dto.getId())) {
+		if(memberService.loginCheck(dto, session) == 1) {
 			return "O";
 		} else {
 			return "X";
 		}
 	}
 	
+	// 로그아웃
 	@RequestMapping("/member/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
 	}
 	
+	// 회원가입 페이지 이동
 	@RequestMapping("/member/join.do")
 	public String join() {
 		return "member/join";
+	}
+	
+	// 아이디 중복확인
+	@RequestMapping("/member/join/idCheck")
+	@ResponseBody
+	public String idCheck(String id) {
+		if(memberService.idCheck(id) == 0) {
+			System.out.println("Dddddddddddddddddddddddddddddddddddddddddd");
+			return "O";
+		} else {
+			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+			return "X";
+		}
 	}
 }

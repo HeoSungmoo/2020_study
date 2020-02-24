@@ -14,12 +14,19 @@ public class MemberServiceImpl implements MemberService {
 	@Inject
 	MemberDAO memberDao;
 	
+	// 로그인 체크
 	@Override
-	public String loginCheck(MemberDTO dto, HttpSession session) {
+	public int loginCheck(MemberDTO dto, HttpSession session) {
 		if(memberDao.loginCheck(dto) == 1){
 			session.setAttribute("id", dto.getId());
-			return dto.getId();
+			return 1;
 		}
-		return "";
+		return 0;
+	}
+	
+	// 아이디 중복확인
+	@Override
+	public int idCheck(String id) {
+		return memberDao.idCheck(id);
 	}
 }

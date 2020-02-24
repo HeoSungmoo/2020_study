@@ -9,24 +9,33 @@
 <title>당고 : 로그인</title>
 <c:set var="path" value="${pageContext.request.contextPath}"></c:set>
 <link rel="stylesheet" href="${path}/resources/css/bootstrap.css">
-<link rel="stylesheet" href="${path}/resources/css/media.css">
+<link rel="stylesheet" href="${path}/resources/css/dango.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="${path}/resources/js/bootstrap.js"></script>
 <script>
+
 $(function(){
+	$("#inputId").hide();
+	$("#inputPw").hide();
+	$("#inputIdPw").hide();
+	
+	// 로그인
 	$("#loginBtn").click(function(){
+		$("#inputId").hide();
+		$("#inputPw").hide();
+		$("#inputIdPw").hide();
+		
 		var id = $("#id").val();
 		var pw = $("#pw").val();
 		
 		if(id == ""){
-			alert("아이디를 입력해주세요");
-			$("#id").focus();
+			$("#inputId").show();
 			return;
 		} else if(pw == ""){
-			alert("패스워드를 입력해주세요");
-			$("#pw").focus();
+			$("#inputPw").show();
 			return;
 		}
+		
 		$.ajax({
 			url : '${path}/member/loginCheck',
 			type : 'post',
@@ -35,10 +44,9 @@ $(function(){
 				if(data == "O"){
 					location.href='${path}';
 				} else if(data == "X"){
-					alert("아이디 혹은 패스워드가 틀립니다.");
-					location.reload();
+					$("#inputIdPw").show();
 				} else{
-					alert("로그인 에러 관리자에게 문의.")
+					alert("로그인 에러 관리자에게 문의.");
 				}
 			}
 		});
@@ -55,18 +63,29 @@ $(function(){
 
 <form class="form-horizontal">
 	<div class="form-group">
-		<input type="text" class="form-control form-control-lg" id="id" placeholder="아이디">
+		<div class="col-lg-12">
+			<input type="text" class="form-control form-control-lg" id="id" maxlength="15" placeholder="아이디">
+			<p id="inputId" style="color:red">아이디를 입력해주세요.</p>
+		</div>
 	</div>
 	<div class="form-group">
-		<input type="password" class="form-control form-control-lg" id="pw" placeholder="비밀번호">
+		<div class="col-lg-12">
+			<input type="password" class="form-control form-control-lg" id="pw" maxlength="15" placeholder="비밀번호">
+			<p id="inputPw" style="color:red">비밀번호를 입력해주세요.</p>
+			<p id="inputIdPw" style="color:red">아이디 또는 비밀번호가 틀렸습니다.</p>
+		</div>
 	</div>
 	<div class="form-group">
-		<input type="button" class="btn btn-primary btn-lg btn-block" id="loginBtn" value="로그인">
+		<div class="col-lg-12">
+			<input type="button" class="btn btn-primary btn-lg btn-block" id="loginBtn" value="로그인">
+		</div>
 	</div>
 	<hr>
 	<div class="form-group text-right">
-		<a href="">ID/PW 찾기</a>
-		<a href="${path}/member/join.do">회원가입</a>
+		<div class="col-lg-12">
+			<a href="">ID/PW 찾기</a>
+			<a href="${path}/member/join.do">회원가입</a>
+		</div>
 	</div>
 </form>
 

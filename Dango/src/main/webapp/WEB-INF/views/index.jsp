@@ -9,9 +9,9 @@
 <title>당고</title>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <link rel="stylesheet" href="${path}/resources/css/bootstrap.css">
-<link rel="stylesheet" href="${path}/resources/css/media.css">
+<link rel="stylesheet" href="${path}/resources/css/dango.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="${path}/resources/js/bootstrap.js"></script>
 </head>
 <body>
 <header>
