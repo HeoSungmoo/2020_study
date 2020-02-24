@@ -5,20 +5,27 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>당고</title>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+<link rel="stylesheet" href="${path}/resources/css/bootstrap.css">
+<link rel="stylesheet" href="${path}/resources/css/media.css">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
 </head>
 <body>
 <header>
-	<a href="${path}"><img alt="Dango" src="${path}/img/Logo.png"></a>
+	<div class="text-center">
+		<a href="${path}"><img alt="Dango" src="${path}/resources/img/Logo.png"></a>
+	</div>
 </header>
 
 <div>
 	<span>
 	<c:choose>
 		<c:when test="${sessionScope.id == null}">
-			<a href="member/login.do">로그인</a>
-			<a href="member/join.do">회원가입</a>
+			<a href="${path}/member/login.do">로그인</a>
+			<a href="${path}/member/join.do">회원가입</a>
 			<a href="">id/pw찾기</a>
 		</c:when>
 		<c:otherwise>

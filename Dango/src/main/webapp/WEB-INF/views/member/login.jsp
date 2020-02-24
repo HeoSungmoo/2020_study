@@ -5,9 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>당고 : 로그인</title>
 <c:set var="path" value="${pageContext.request.contextPath}"></c:set>
+<link rel="stylesheet" href="${path}/resources/css/bootstrap.css">
+<link rel="stylesheet" href="${path}/resources/css/media.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
 <script>
 $(function(){
 	$("#loginBtn").click(function(){
@@ -42,15 +46,29 @@ $(function(){
 });
 </script>
 </head>
-<body>
+<body class="container">
 <header>
-	<a href="${path}"><img alt="Dango" src="${path}/img/Logo.png"></a>
+	<div class="text-center">
+		<a href="${path}"><img alt="Dango" src="${path}/resources/img/Logo.png"></a>
+	</div>
 </header>
 
-<input type="text" id="id" name="id">
-<input type="password" id="pw" name="pw">
-<input type="button" id="loginBtn" name="loginBtn" value="로그인">
-<a href="">ID/PW 찾기</a>
+<form class="form-horizontal">
+	<div class="form-group">
+		<input type="text" class="form-control form-control-lg" id="id" placeholder="아이디">
+	</div>
+	<div class="form-group">
+		<input type="password" class="form-control form-control-lg" id="pw" placeholder="비밀번호">
+	</div>
+	<div class="form-group">
+		<input type="button" class="btn btn-primary btn-lg btn-block" id="loginBtn" value="로그인">
+	</div>
+	<hr>
+	<div class="form-group text-right">
+		<a href="">ID/PW 찾기</a>
+		<a href="${path}/member/join.do">회원가입</a>
+	</div>
+</form>
 
 <footer>
 </footer>
