@@ -24,4 +24,10 @@ public class MemberDAOImpl implements MemberDAO {
 	public int idCheck(String id) {
 		return sqlSession.selectOne("member.idCheck", id);
 	}
+	
+	// 메일 중복확인
+	@Override
+	public int mailCheck(String mail) {
+		return sqlSession.selectOne("member.mailCheck", mail);
+	}
 }

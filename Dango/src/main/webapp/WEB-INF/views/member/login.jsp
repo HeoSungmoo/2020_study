@@ -41,9 +41,9 @@ $(function(){
 			type : 'post',
 			data : 'id='+id+'&pw='+pw,
 			success : function(data){
-				if(data == "O"){
+				if(data == "1"){
 					location.href='${path}';
-				} else if(data == "X"){
+				} else if(data == "0"){
 					$("#inputIdPw").show();
 				} else{
 					alert("로그인 에러 관리자에게 문의.");

@@ -24,18 +24,22 @@ $(function(){
 	$("#inputPhone").hide();
 	$("#phoneCheck").hide();
 	$("#inputMail").hide();
-	$("#inputMailCheck").hide();
+	$("#mailCheck").hide();
+	$("#mailCheck2").hide();
+	$("#mailSend").hide();
+	$("#inputMailNum").hide();
 	$("#inputAddress").hide();
 	
 	var idCheck;	// 중복확인한 아이디
-	var mailCheck;  // 중복확인 및 인증된 메일
+	var mailCheck;  // 중복확인 및 인증 메일
+	var mailNum		// 메일 인증번호
 	
 	$("#cencleBtn").click(function(){
 		location.href="${path}";
 	});
 	
 	// 아이디 체크
-	$("#idCheckBtn").click(function(){
+	$("#id").blur(function(){
 		$("#inputId").hide();
 		$("#idCheck").hide();
 		$("#idCheck2").hide();
@@ -49,14 +53,14 @@ $(function(){
 		}
 		
 		$.ajax({
-			url : '${path}/member/join/idCheck',
+			url : '${path}/member/idCheck',
 			type : 'post',
 			data : 'id='+id,
 			success : function(data){
-				if(data == "O"){
+				if(data == "0"){
 					idCheck = id;		// 중복확인한 아이디값 저장
 					$("#idCheck").show();
-				} else if(data == "X"){
+				} else if(data == "1"){
 					$("#idCheck2").show();
 					$("#id").focus();
 				}
@@ -70,6 +74,47 @@ $(function(){
 	});
 	$("#phone").blur(function(){
 		$("#phoneCheck").hide();
+	});
+	
+	// 메일 중복확인
+	$("#mailSendBtn").click(function(){
+		$("#inputMail").hide();
+		$("#mailCheck").hide();
+		$("#mailCheck2").hide();
+		$("#mailSend").hide();
+		
+		var mail = $("#mail").val();
+		
+		if(mail == ""){
+			$("#inputMail").show();
+			return;
+		}
+		
+		$.ajax({
+			url : '${path}/member/mailCheck',
+			type : 'post',
+			data : 'mail='+mail,
+			success : function(data){
+				if(data == "0"){
+					// 메일 인증번호 보내기
+					$("#mailSend").show();
+					$.ajax({
+						url : '${path}/member/mailSend',
+						type : 'post',
+						data : 'mail='+mail,
+						success : function(data){
+							mailCheck = mail;
+							mailNum = data;
+						}
+					});
+				} else if(data == "1"){
+					$("#mailCheck").show();
+					return;
+				} else if(data == "X"){
+					$("#mailCheck2").show();
+				}
+			}
+		});
 	});
 	
 	// 회원가입
@@ -102,11 +147,6 @@ $(function(){
 	</div>
 	<div class="form-group">
 		<div class="col-lg-10">
-			<input type="button" class="btn btn-primary btn-block btn-lg" id="idCheckBtn" value="중복확인">
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="col-lg-10">
 			<input type="password" class="form-control form-control-lg" id="pw" maxlength="15" placeholder="비밀번호">
 			<p id="inputPw" style="color:red">비밀번호를 입력해주세요.</p>
 		</div>
@@ -128,6 +168,9 @@ $(function(){
 		<div class="col-lg-10">
 			<input type="text" class="form-control form-control-lg" id="mail" maxlength="50" placeholder="메일">
 			<p id="inputMail" style="color:red">메일 아이디를 입력해주세요.</p>
+			<p id="mailCheck" style="color:red">이미 가입한 메일입니다.</p>
+			<p id="mailCheck2" style="color:red">메일 형식이 잘못되었습니다.<br>소문자, 숫자, 특수문자('-','_') 가능.</p>
+			<p id="mailSend" style="color:blue">인증번호가 전송되었습니다.</p>
 		</div>
 	</div>
 	<div class="form-group">
@@ -137,8 +180,8 @@ $(function(){
 	</div>
 	<div class="form-group">
 		<div class="col-lg-10">
-			<input type="text" class="form-control form-control-lg" id="mailCheck" maxlength="4" placeholder="인증번호 입력">
-			<p id="inputMailCheck" style="color:red">인증번호를 입력해주세요.</p>
+			<input type="text" class="form-control form-control-lg" id="mailNum" maxlength="4" placeholder="인증번호 입력">
+			<p id="inputMailNum" style="color:red">인증번호를 입력해주세요.</p>
 		</div>
 	</div>
 	<div class="form-group">
