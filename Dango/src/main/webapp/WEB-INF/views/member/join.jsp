@@ -30,29 +30,29 @@ $(function(){
 	$("#mailCheck2").hide();
 	$("#mailSend").hide();
 	$("#inputMailNum").hide();
+	$("#mailNumCheck").hide();
+	$("#mailNumCheck2").hide();
 	$("#inputAddress").hide();
 	
 	var idCheck;	// 중복확인한 아이디
-	var mailCheck;  // 중복확인 및 인증 메일
-	var mailNum		// 메일 인증번호
 	var pwCheck;	// 유효성 검사가 된 패스워드
+	var phoneCheck; // 유효성 검사가 된 전화번호
+	var mailCheck;  // 중복확인 및 인증 메일
+	var mailNumCheck// 메일 인증번호
 	
 	$("#cencleBtn").click(function(){
 		location.href="${path}";
 	});
 	
 	// 아이디 중복확인 및 유효성 검사
-	$("#id").blur(function(){
-		$("#inputId").hide();
-		$("#idCheck").hide();
-		$("#idCheck2").hide();
-		$("#idCheck3").hide();
-		
+	$("#id").keyup(function(){
 		var id = $("#id").val();
 		
 		if(id == ""){
 			$("#inputId").show();
-			$("#id").focus();
+			$("#idCheck").hide();
+			$("#idCheck2").hide();
+			$("#idCheck3").hide();
 			return;
 		}
 		
@@ -62,27 +62,36 @@ $(function(){
 			data : 'id='+id,
 			success : function(data){
 				if(data == "0"){
-					idCheck = id;		// 중복확인한 아이디값 저장
+					idCheck = id;
+					$("#inputId").hide();
 					$("#idCheck").show();
+					$("#idCheck2").hide();
+					$("#idCheck3").hide();
+					return;
 				} else if(data == "1"){
+					$("#inputId").hide();
+					$("#idCheck").hide();
 					$("#idCheck2").show();
-					$("#id").focus();
+					$("#idCheck3").hide();
+					return;
 				} else if(data == "X"){
+					$("#inputId").hide();
+					$("#idCheck").hide();
+					$("#idCheck2").hide();
 					$("#idCheck3").show();
+					return;
 				}
 			}
 		});
 	});
 	
 	// 비밀번호 유효성 검사
-	$("#pw").blur(function(){
-		$("#inputPw").hide();
-		$("#pwCheck").hide();
-		
+	$("#pw").keyup(function(){
 		var pw = $("#pw").val();
 		
 		if(pw == ""){
 			$("#inputPw").show();
+			$("#pwCheck").hide();
 			return;
 		}
 		
@@ -92,34 +101,77 @@ $(function(){
 			data : 'pw='+pw,
 			success : function(data){
 				if(data == "O"){
-					pwCheck = data;	
+					pwCheck = pw;	
+					$("#pwCheck").hide();
+					$("#inputPw").hide();
+					return;
 				} else if(data == "X"){
 					$("#pwCheck").show();
+					$("#inputPw").hide();
+					return;
 				}
 				
 			}
 		});
 	});
 	
-	// 휴대폰번호 입력 하이픈('-') 제외 도움말
-	$("#phone").focus(function(){
-		$("#phoneCheck").show();
+	// 이름 입력
+	$("#name").focus(function(){
+		var name = $("#name").val();
+		if(name == ""){
+			$("#inputName").show();
+			return;
+		}
 	});
-	$("#phone").blur(function(){
-		$("#phoneCheck").hide();
+	$("#name").keyup(function(){
+		var name = $("#name").val();
+		if(name == ""){
+			$("#inputName").show();
+			return;
+		} else{
+			$("#inputName").hide();
+			return;
+		}
+	});
+	
+	
+	// 휴대폰번호 유효성 검사
+	$("#phone").keyup(function(){
+		var phone = $("#phone").val();
+		
+		if(phone == ""){
+			$("#inputPhone").show();
+			$("#phoneCheck").hide();
+			return;
+		}
+		
+		$.ajax({
+			url : '${path}/member/phoneCheck',
+			type : 'post',
+			data : 'phone='+phone,
+			success : function(data){
+				if(data == "O"){
+					phoneCheck = phone;
+					$("#inputPhone").hide();
+					$("#phoneCheck").hide();
+					return;
+				} else if(data == "X"){
+					$("#inputPhone").hide();
+					$("#phoneCheck").show();
+				}
+			}
+		});
 	});
 	
 	// 메일 중복확인 및 유효성 검사
 	$("#mailSendBtn").click(function(){
-		$("#inputMail").hide();
-		$("#mailCheck").hide();
-		$("#mailCheck2").hide();
-		$("#mailSend").hide();
-		
 		var mail = $("#mail").val();
 		
 		if(mail == ""){
 			$("#inputMail").show();
+			$("#mailCheck").hide();
+			$("#mailCheck2").hide();
+			$("#mailSend").hide();
 			return;
 		}
 		
@@ -130,6 +182,9 @@ $(function(){
 			success : function(data){
 				if(data == "0"){
 					// 메일 인증번호 보내기
+					$("#inputMail").hide();
+					$("#mailCheck").hide();
+					$("#mailCheck2").hide();
 					$("#mailSend").show();
 					$.ajax({
 						url : '${path}/member/mailSend',
@@ -137,19 +192,69 @@ $(function(){
 						data : 'mail='+mail,
 						success : function(data){
 							mailCheck = mail;
-							mailNum = data;
+							mailNumCheck = data;
 						}
 					});
 				} else if(data == "1"){
+					$("#inputMail").hide();
 					$("#mailCheck").show();
+					$("#mailCheck2").hide();
+					$("#mailSend").hide();
 					return;
 				} else if(data == "X"){
+					$("#inputMail").hide();
+					$("#mailCheck").hide();
 					$("#mailCheck2").show();
+					$("#mailSend").hide();
+					return;
 				}
 			}
 		});
 	});
 	
+	// 인증번호 검사
+	$("#mailNum").keyup(function(){
+		var mailNum = $("#mailNum").val();
+		
+		if(mailNum == ""){
+			$("#inputMailNum").show();
+			$("#mailNumCheck").hide();
+			$("#mailNumCheck2").hide();
+			return;
+		} else if(mailNumCheck == mailNum){
+			$("#inputMailNum").hide();
+			$("#mailNumCheck").show();
+			$("#mailNumCheck2").hide();
+			return;
+		} else if(mailNumCheck != mailNum){
+			$("#inputMailNum").hide();
+			$("#mailNumCheck").hide();
+			$("#mailNumCheck2").show();
+			return;
+		}
+	});
+	
+	// 주소 입력
+	$("#address").focus(function(){
+		var address = $("#address").val();
+		
+		if(address == ""){
+			$("#inputAddress").show();
+			return;
+		}
+	});
+	$("#address").keyup(function(){
+		var name = $("#address").val();
+		
+		if(name == ""){
+			$("#inputAddress").show();
+			return;
+		} else{
+			$("#inputAddress").hide();
+			return;
+		}
+	});
+
 	// 회원가입
 	$("#joinBtn").click(function(){
 		var id = $("#id").val();
@@ -157,9 +262,42 @@ $(function(){
 		var name = $("#name").val();
 		var phone = $("#phone").val();
 		var mail = $("#mail").val();
+		var mailNum = $("#mailNum").val();
 		var address = $("#address").val();
-		var bigpoint = $("#bigpoint").val();
-		var middlepoint = $("#middlepoint").val();
+		var bp = $("#bigpoint").val();
+		var mp = $("#middlepoint").val();
+		
+		if(id == "" || id != idCheck){
+			$("#id").focus();
+			return;
+		} else if(pw == "" || pw != pwCheck){
+			$("#pw").focus();
+			return;
+		} else if(name == ""){
+			$("#name").focus();
+			return;
+		} else if(phone == "" || phone != phoneCheck){
+			$("#phone").focus();
+			return;
+		} else if(mail == "" || mail != mailCheck){
+			$("#mail").focus();
+			return;
+		} else if(mailNum == "" || mailNum != mailNumCheck){
+			$("#mailNum").focus();
+			return;
+		} else if(address == ""){
+			$("#address").focus();
+			return;
+		}
+		
+		$.ajax({
+			url : '${path}/member/join',
+			type : 'post',
+			data : 'id='+id+'&pw='+pw+'&name='+name+'&phone='+phone+'&mail='+mail+'&address='+address+'&bp='+bp+'&mp='+mp,
+			success : function(data){
+				location.href="${path}/member/joinSuccess.do";
+			}
+		});
 	});
 });
 </script>
@@ -194,9 +332,9 @@ $(function(){
 	</div>
 	<div class="form-group">
 		<div class="col-lg-10">
-			<input type="text" class="form-control form-control-lg" id="phone" maxlength="11" placeholder="휴대폰">
+			<input type="text" class="form-control form-control-lg" id="phone" maxlength="11" placeholder="휴대폰 번호">
 			<p id="inputPhone" style="color:red">휴대폰 번호 입력해주세요.</p>
-			<p id="phoneCheck" style="color:blue">하이픈('-')을 제외한 숫자만 입력해주세요.</p>
+			<p id="phoneCheck" style="color:red">하이픈('-')을 제외한 11개의 숫자만 입력해주세요.</p>
 		</div>
 	</div>
 	<div class="form-group">
@@ -217,6 +355,8 @@ $(function(){
 		<div class="col-lg-10">
 			<input type="text" class="form-control form-control-lg" id="mailNum" maxlength="4" placeholder="인증번호 입력">
 			<p id="inputMailNum" style="color:red">인증번호를 입력해주세요.</p>
+			<p id="mailNumCheck" style="color:blue">인증되었습니다.</p>
+			<p id="mailNumCheck2" style="color:red">인증번호가 다릅니다 다시 확인해주세요.</p>
 		</div>
 	</div>
 	<div class="form-group">

@@ -107,6 +107,18 @@ public class MemberController {
 		return "O";
 	}
 	
+	// 휴대폰 번호 유효성 검사
+	@RequestMapping("/member/phoneCheck")
+	@ResponseBody
+	public String phoneCheck(String phone) {
+		for(int i=0;i<phone.length();i++) {
+			if(!(phone.charAt(i)>='0' && phone.charAt(i)<='9') || phone.length()!=11) {
+				return "X";
+			}
+		}
+		return "O";
+	}
+	
 	// 메일 유효성 검사 및 중복확인
 	@RequestMapping("/member/mailCheck")
 	@ResponseBody
@@ -150,7 +162,14 @@ public class MemberController {
 	@RequestMapping("/member/mailSend")
 	@ResponseBody
 	public String mailSend(final String mail) {
-		final String mailNum = (int)(Math.random()*10000) + "";
+		final String mailNum;
+		while(true){
+			int random = (int)(Math.random()*10000);
+			if(random > 1000) {
+				mailNum = random + "";
+				break;
+			}
+		}
 		final MimeMessagePreparator preparator = new MimeMessagePreparator() {
 			@Override
 			public void prepare(MimeMessage mimeMessage) throws Exception {
@@ -163,5 +182,17 @@ public class MemberController {
 		};
 		mailSender.send(preparator);
 		return mailNum;
+	}
+	
+	@RequestMapping("/member/join")
+	@ResponseBody
+	public String join(MemberDTO dto) {
+		memberService.join(dto);
+		return "";
+	}
+	
+	@RequestMapping("/member/joinSuccess.do")
+	public String joinSuccess() {
+		return "member/joinSuccess";
 	}
 }

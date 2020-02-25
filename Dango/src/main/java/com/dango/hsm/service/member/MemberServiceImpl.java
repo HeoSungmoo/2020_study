@@ -35,4 +35,10 @@ public class MemberServiceImpl implements MemberService {
 	public int mailCheck(String mail) {
 		return memberDao.mailCheck(mail);
 	}
+	
+	// 회원가입
+	@Override
+	public void join(MemberDTO dto) {
+		memberDao.join(dto);
+	}
 }

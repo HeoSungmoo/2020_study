@@ -30,4 +30,10 @@ public class MemberDAOImpl implements MemberDAO {
 	public int mailCheck(String mail) {
 		return sqlSession.selectOne("member.mailCheck", mail);
 	}
+	
+	// 회원가입
+	@Override
+	public void join(MemberDTO dto) {
+		sqlSession.insert("member.join", dto);
+	}
 }

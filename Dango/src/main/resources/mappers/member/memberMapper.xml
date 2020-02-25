@@ -24,4 +24,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from member
 		where mail = #{mail}
 	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="join">
+		insert into
+		member
+		values(#{id},#{pw},#{name},#{phone},#{mail},#{address},0,#{bp},#{mp})
+	</insert>
 </mapper>
