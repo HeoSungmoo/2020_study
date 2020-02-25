@@ -19,7 +19,9 @@ $(function(){
 	$("#inputId").hide();
 	$("#idCheck").hide();
 	$("#idCheck2").hide();
+	$("#idCheck3").hide();
 	$("#inputPw").hide();
+	$("#pwCheck").hide();
 	$("#inputName").hide();
 	$("#inputPhone").hide();
 	$("#phoneCheck").hide();
@@ -33,16 +35,18 @@ $(function(){
 	var idCheck;	// 중복확인한 아이디
 	var mailCheck;  // 중복확인 및 인증 메일
 	var mailNum		// 메일 인증번호
+	var pwCheck;	// 유효성 검사가 된 패스워드
 	
 	$("#cencleBtn").click(function(){
 		location.href="${path}";
 	});
 	
-	// 아이디 체크
+	// 아이디 중복확인 및 유효성 검사
 	$("#id").blur(function(){
 		$("#inputId").hide();
 		$("#idCheck").hide();
 		$("#idCheck2").hide();
+		$("#idCheck3").hide();
 		
 		var id = $("#id").val();
 		
@@ -63,7 +67,36 @@ $(function(){
 				} else if(data == "1"){
 					$("#idCheck2").show();
 					$("#id").focus();
+				} else if(data == "X"){
+					$("#idCheck3").show();
 				}
+			}
+		});
+	});
+	
+	// 비밀번호 유효성 검사
+	$("#pw").blur(function(){
+		$("#inputPw").hide();
+		$("#pwCheck").hide();
+		
+		var pw = $("#pw").val();
+		
+		if(pw == ""){
+			$("#inputPw").show();
+			return;
+		}
+		
+		$.ajax({
+			url : '${path}/member/pwCheck',
+			type : 'post',
+			data : 'pw='+pw,
+			success : function(data){
+				if(data == "O"){
+					pwCheck = data;	
+				} else if(data == "X"){
+					$("#pwCheck").show();
+				}
+				
 			}
 		});
 	});
@@ -76,7 +109,7 @@ $(function(){
 		$("#phoneCheck").hide();
 	});
 	
-	// 메일 중복확인
+	// 메일 중복확인 및 유효성 검사
 	$("#mailSendBtn").click(function(){
 		$("#inputMail").hide();
 		$("#mailCheck").hide();
@@ -143,12 +176,14 @@ $(function(){
 			<p id="inputId" style="color:red">아이디를 입력해주세요.</p>
 			<p id="idCheck" style="color:blue">사용 가능한 아이디입니다.</p>
 			<p id="idCheck2" style="color:red">이미 존재하는 아이디입니다.</p>
+			<p id="idCheck3" style="color:red">5~15자의 영문 소문자, 숫자만 입력이 가능합니다.</p>
 		</div>
 	</div>
 	<div class="form-group">
 		<div class="col-lg-10">
 			<input type="password" class="form-control form-control-lg" id="pw" maxlength="15" placeholder="비밀번호">
 			<p id="inputPw" style="color:red">비밀번호를 입력해주세요.</p>
+			<p id="pwCheck" style="color:red">8~15자의 대소문자, 숫자, 특수문자를 하나 이상씩 사용하세요.</p>
 		</div>
 	</div>
 	<div class="form-group">

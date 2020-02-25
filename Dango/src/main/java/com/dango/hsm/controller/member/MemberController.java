@@ -62,15 +62,49 @@ public class MemberController {
 		}
 	}
 	
-	// 아이디 중복확인
+	// 아이디 유효성 검사 및 중복확인
 	@RequestMapping("/member/idCheck")
 	@ResponseBody
 	public String idCheck(String id) {
+		for(int i=0;i<id.length();i++) {
+			if(!(id.charAt(i)>='0' && id.charAt(i)<='9' || id.charAt(i)>='a' && id.charAt(i)<='z') || id.length() < 5 || id.length() > 15) {
+				return "X";
+			}
+		}
+
 		if(memberService.idCheck(id) == 0) {
 			return "0";
 		} else {
 			return "1";
 		}
+	}
+	
+	// 비밀번호 유효성 검사
+	@RequestMapping("/member/pwCheck")
+	@ResponseBody
+	public String pwCheck(String pw) {
+		int num = 0;
+		int literal = 0;
+		int icon = 0;
+		String icons = "`~!@#$%^&*()_+-=[] {}|;:',.<>/?";
+		
+		for(int i=0;i<pw.length();i++) {
+			if(pw.charAt(i)>='0' && pw.charAt(i)<='9') {
+				num++;
+			} else if(pw.charAt(i)>='a' && pw.charAt(i)<='z' || pw.charAt(i)>='A' && pw.charAt(i)<='Z') {
+				literal++;
+			}
+			for(int j=0;j<icons.length();j++) {
+				if(pw.charAt(i) == icons.charAt(j)) {
+					icon++;
+				}
+			}
+		}
+		if(pw.length()<8 || pw.length()>15 || num==0 || literal==0 || icon==0) {
+			return "X";
+		}
+		
+		return "O";
 	}
 	
 	// 메일 유효성 검사 및 중복확인
