@@ -63,27 +63,28 @@ $(function(){
 
 <form class="form-horizontal">
 	<div class="form-group">
-		<div class="col-lg-12">
+		<div class="col-lg-10">
 			<input type="text" class="form-control form-control-lg" id="id" maxlength="15" placeholder="아이디">
 			<p id="inputId" style="color:red">아이디를 입력해주세요.</p>
 		</div>
 	</div>
 	<div class="form-group">
-		<div class="col-lg-12">
+		<div class="col-lg-10">
 			<input type="password" class="form-control form-control-lg" id="pw" maxlength="15" placeholder="비밀번호">
 			<p id="inputPw" style="color:red">비밀번호를 입력해주세요.</p>
 			<p id="inputIdPw" style="color:red">아이디 또는 비밀번호가 틀렸습니다.</p>
 		</div>
 	</div>
 	<div class="form-group">
-		<div class="col-lg-12">
+		<div class="col-lg-10">
 			<input type="button" class="btn btn-primary btn-lg btn-block" id="loginBtn" value="로그인">
 		</div>
 	</div>
 	<hr>
 	<div class="form-group text-right">
-		<div class="col-lg-12">
-			<a href="">ID/PW 찾기</a>
+		<div class="col-lg-10">
+			<a href="${path}/member/findId.do">아이디 찾기</a>
+			<a href="">비밀번호 찾기</a>
 			<a href="${path}/member/join.do">회원가입</a>
 		</div>
 	</div>

@@ -36,4 +36,10 @@ public class MemberDAOImpl implements MemberDAO {
 	public void join(MemberDTO dto) {
 		sqlSession.insert("member.join", dto);
 	}
+	
+	// 아이디 찾기
+	@Override
+	public String findId(MemberDTO dto) {
+		return sqlSession.selectOne("member.findId", dto);
+	}
 }

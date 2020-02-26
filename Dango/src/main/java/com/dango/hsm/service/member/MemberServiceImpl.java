@@ -41,4 +41,15 @@ public class MemberServiceImpl implements MemberService {
 	public void join(MemberDTO dto) {
 		memberDao.join(dto);
 	}
+	
+	// 아이디 찾기
+	@Override
+	public String findId(MemberDTO dto) {
+		String id = memberDao.findId(dto);
+		if(id.equals(null)) {
+			return "X";
+		} else {
+			return id;
+		}
+	}
 }

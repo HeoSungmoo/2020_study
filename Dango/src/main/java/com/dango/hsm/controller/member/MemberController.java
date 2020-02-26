@@ -144,6 +144,7 @@ public class MemberController {
 			}
 		}
 		// 소문자, 숫자, 특수기호('-','_')만 가능
+		// 메일이 존재하면 1 존재하지 않으면 0 잘못된 형식이면 x
 		if(at+1<dot && dot!=(mail.length()-1) && at!=0 && atCount==1 && dotCount==1 && at>hyphen && at>num && mail.charAt(0)!='-' && mail.charAt(0)!='_') {
 			for(int i=0;i<mail.length();i++) {
 				if(mail.charAt(i)=='.' || mail.charAt(i)=='@' || mail.charAt(i)=='-' || mail.charAt(i)=='_' || (mail.charAt(i)>='0' && mail.charAt(i)<='9') || (mail.charAt(i)>='a' && mail.charAt(i)<='z')) {
@@ -184,6 +185,7 @@ public class MemberController {
 		return mailNum;
 	}
 	
+	// 회원가입
 	@RequestMapping("/member/join")
 	@ResponseBody
 	public String join(MemberDTO dto) {
@@ -191,8 +193,26 @@ public class MemberController {
 		return "";
 	}
 	
+	// 회원가입 완료 페이지
 	@RequestMapping("/member/joinSuccess.do")
 	public String joinSuccess() {
 		return "member/joinSuccess";
+	}
+	
+	// 아이디 찾기 페이지
+	@RequestMapping("/member/findId.do")
+	public String findId(HttpSession session) {
+		if(session.getAttribute("id") != null) {
+			return "redirect:/";
+		} else {
+			return "member/findId";
+		}
+	}
+	
+	// 아이디 찾기
+	@RequestMapping("/member/findId")
+	@ResponseBody
+	public String findId(MemberDTO dto) {
+		return memberService.findId(dto);
 	}
 }

@@ -27,8 +27,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 회원가입 -->
 	<insert id="join">
-		insert into
-		member
+		insert 
+		into member
 		values(#{id},#{pw},#{name},#{phone},#{mail},#{address},0,#{bp},#{mp})
 	</insert>
+	
+	<!-- 아이디 찾기 -->
+	<select id="findId" resultType="String">
+		select id
+		from member
+		where name = #{name} and mail = #{mail}
+	</select>
 </mapper>

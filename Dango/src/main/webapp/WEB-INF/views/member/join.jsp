@@ -12,8 +12,6 @@
 <link rel="stylesheet" href="${path}/resources/css/dango.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="${path}/resources/js/bootstrap.js"></script>
-</head>
-<body class="container">
 <script>
 $(function(){
 	$("#inputId").hide();
@@ -31,7 +29,6 @@ $(function(){
 	$("#mailSend").hide();
 	$("#inputMailNum").hide();
 	$("#mailNumCheck").hide();
-	$("#mailNumCheck2").hide();
 	$("#inputAddress").hide();
 	
 	var idCheck;	// 중복확인한 아이디
@@ -39,10 +36,6 @@ $(function(){
 	var phoneCheck; // 유효성 검사가 된 전화번호
 	var mailCheck;  // 중복확인 및 인증 메일
 	var mailNumCheck// 메일 인증번호
-	
-	$("#cencleBtn").click(function(){
-		location.href="${path}";
-	});
 	
 	// 아이디 중복확인 및 유효성 검사
 	$("#id").keyup(function(){
@@ -116,13 +109,6 @@ $(function(){
 	});
 	
 	// 이름 입력
-	$("#name").focus(function(){
-		var name = $("#name").val();
-		if(name == ""){
-			$("#inputName").show();
-			return;
-		}
-	});
 	$("#name").keyup(function(){
 		var name = $("#name").val();
 		if(name == ""){
@@ -158,12 +144,13 @@ $(function(){
 				} else if(data == "X"){
 					$("#inputPhone").hide();
 					$("#phoneCheck").show();
+					return;
 				}
 			}
 		});
 	});
 	
-	// 메일 중복확인 및 유효성 검사
+	// 메일 중복확인 및 유효성 검사 후 인증번호 보내기
 	$("#mailSendBtn").click(function(){
 		var mail = $("#mail").val();
 		
@@ -172,6 +159,7 @@ $(function(){
 			$("#mailCheck").hide();
 			$("#mailCheck2").hide();
 			$("#mailSend").hide();
+			$("#mail").focus();
 			return;
 		}
 		
@@ -212,37 +200,22 @@ $(function(){
 		});
 	});
 	
-	// 인증번호 검사
+	// 인증번호 입력
 	$("#mailNum").keyup(function(){
 		var mailNum = $("#mailNum").val();
 		
 		if(mailNum == ""){
 			$("#inputMailNum").show();
 			$("#mailNumCheck").hide();
-			$("#mailNumCheck2").hide();
 			return;
-		} else if(mailNumCheck == mailNum){
-			$("#inputMailNum").hide();
-			$("#mailNumCheck").show();
-			$("#mailNumCheck2").hide();
-			return;
-		} else if(mailNumCheck != mailNum){
+		} else{
 			$("#inputMailNum").hide();
 			$("#mailNumCheck").hide();
-			$("#mailNumCheck2").show();
 			return;
 		}
 	});
 	
 	// 주소 입력
-	$("#address").focus(function(){
-		var address = $("#address").val();
-		
-		if(address == ""){
-			$("#inputAddress").show();
-			return;
-		}
-	});
 	$("#address").keyup(function(){
 		var name = $("#address").val();
 		
@@ -275,6 +248,7 @@ $(function(){
 			return;
 		} else if(name == ""){
 			$("#name").focus();
+			$("#inputName").show();
 			return;
 		} else if(phone == "" || phone != phoneCheck){
 			$("#phone").focus();
@@ -282,11 +256,17 @@ $(function(){
 		} else if(mail == "" || mail != mailCheck){
 			$("#mail").focus();
 			return;
-		} else if(mailNum == "" || mailNum != mailNumCheck){
+		} else if(mailNum == ""){
 			$("#mailNum").focus();
+			$("#inputMailNum").show();
+			return;
+		} else if(mailNum != mailNumCheck){
+			$("#mailNum").focus();
+			$("#mailNumCheck").show();
 			return;
 		} else if(address == ""){
 			$("#address").focus();
+			$("#inputAddress").show();
 			return;
 		}
 		
@@ -301,13 +281,15 @@ $(function(){
 	});
 });
 </script>
+</head>
+<body class="container">
 <header>
 	<div class="text-center">
 		<a href="${path}"><img alt="Dango" src="${path}/resources/img/Logo.png"></a>
 	</div>
 </header>
 
-<form class="form-horizonatal">
+<form class="form-horizontal">
 	<div class="form-group">
 		<div class="col-lg-10">
 			<input type="text" class="form-control form-control-lg" id="id" maxlength="15" placeholder="아이디">
@@ -355,8 +337,7 @@ $(function(){
 		<div class="col-lg-10">
 			<input type="text" class="form-control form-control-lg" id="mailNum" maxlength="4" placeholder="인증번호 입력">
 			<p id="inputMailNum" style="color:red">인증번호를 입력해주세요.</p>
-			<p id="mailNumCheck" style="color:blue">인증되었습니다.</p>
-			<p id="mailNumCheck2" style="color:red">인증번호가 다릅니다 다시 확인해주세요.</p>
+			<p id="mailNumCheck" style="color:red">인증번호가 틀렸습니다.</p>
 		</div>
 	</div>
 	<div class="form-group">
@@ -401,10 +382,9 @@ $(function(){
 			</select>
 		</div>
 	</div>
-	<div class="form-group">
+	<div class="form-group text-center">
 		<div class="col-lg-10">
 			<input type="button" class="btn btn-primary btn-lg" id="joinBtn" value="회원가입">
-			<input type="button" class="btn btn-primary btn-lg" id="cencleBtn" value="취소">
 		</div>
 	</div>
 </form>
