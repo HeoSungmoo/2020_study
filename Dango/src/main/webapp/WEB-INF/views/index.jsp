@@ -27,7 +27,7 @@
 					<a href="${path}/member/login.do">로그인</a>
 					<a href="${path}/member/join.do">회원가입</a>
 					<a href="${path}/member/findId.do">아이디 찾기</a>
-					<a href="">비밀번호 찾기</a>
+					<a href="${path}/member/findPw.do">비밀번호 찾기</a>
 				</c:when>
 				<c:otherwise>
 					<a href="">${sessionScope.id}님</a>

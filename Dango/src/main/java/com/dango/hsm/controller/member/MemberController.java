@@ -9,8 +9,11 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.dango.hsm.model.member.dto.MemberDTO;
 import com.dango.hsm.service.member.MemberService;
@@ -148,11 +151,15 @@ public class MemberController {
 		if(at+1<dot && dot!=(mail.length()-1) && at!=0 && atCount==1 && dotCount==1 && at>hyphen && at>num && mail.charAt(0)!='-' && mail.charAt(0)!='_') {
 			for(int i=0;i<mail.length();i++) {
 				if(mail.charAt(i)=='.' || mail.charAt(i)=='@' || mail.charAt(i)=='-' || mail.charAt(i)=='_' || (mail.charAt(i)>='0' && mail.charAt(i)<='9') || (mail.charAt(i)>='a' && mail.charAt(i)<='z')) {
-					if(memberService.mailCheck(mail) == 0) {
-						return "0";
-					} else {
-						return "1";
+					if(i == mail.length()-1) {
+						if(memberService.mailCheck(mail) == 0) {
+							return "0";
+						} else {
+							return "1";
+						}
 					}
+				} else {
+					break;
 				}
 			}		 
 		}
@@ -160,9 +167,9 @@ public class MemberController {
 	}
 	
 	// 메일 인증번호 보내기
-	@RequestMapping("/member/mailSend")
+	@RequestMapping("/member/mailNumSend")
 	@ResponseBody
-	public String mailSend(final String mail) {
+	public String mailNumSend(final String mail) {
 		final String mailNum;
 		while(true){
 			int random = (int)(Math.random()*10000);
@@ -214,5 +221,45 @@ public class MemberController {
 	@ResponseBody
 	public String findId(MemberDTO dto) {
 		return memberService.findId(dto);
+	}
+	
+	// findId 메일 보내기
+	@RequestMapping("/member/mailIdSend")
+	@ResponseBody
+	public String mailIdSend(final String mail, final String id) {
+		final MimeMessagePreparator preparator = new MimeMessagePreparator() {
+			@Override
+			public void prepare(MimeMessage mimeMessage) throws Exception {
+				final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+				helper.setFrom("tjdan862@gmail.com");
+				helper.setTo(mail);
+				helper.setSubject("당고 인증번호입니다");
+				helper.setText("고객님의 당고 아이디는 : [" + id + "]입니다");
+			}
+		};
+		mailSender.send(preparator);
+		return "";
+	}
+	
+	// 아이디 찾기 성공 페이지
+	@RequestMapping("/member/findIdSuccess.do")
+	public String findIdSuccess() {
+		return "member/findIdSuccess";
+	}
+	
+	// 비밀번호 찾기 페이지
+	@RequestMapping("/member/findPw.do")
+	public String findPw() {
+		return "member/findPw";
+	}
+	
+	// 비밀번호 찾기
+	@RequestMapping("/member/findPw")
+	public String findPw(MemberDTO dto) {
+		if(memberService.findPw(dto) == 1) {
+			return "O";
+		} else {
+			return "X";
+		}
 	}
 }

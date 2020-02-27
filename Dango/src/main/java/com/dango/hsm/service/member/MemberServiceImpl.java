@@ -46,10 +46,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String findId(MemberDTO dto) {
 		String id = memberDao.findId(dto);
-		if(id.equals(null)) {
+		if(id == null) {
 			return "X";
 		} else {
 			return id;
 		}
+	}
+	
+	// 비밀번호 찾기
+	@Override
+	public int findPw(MemberDTO dto) {
+		return memberDao.findPw(dto);
 	}
 }

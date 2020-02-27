@@ -26,6 +26,7 @@ $(function(){
 	$("#inputMail").hide();
 	$("#mailCheck").hide();
 	$("#mailCheck2").hide();
+	$("#mailCheck3").hide();
 	$("#mailSend").hide();
 	$("#inputMailNum").hide();
 	$("#mailNumCheck").hide();
@@ -151,13 +152,14 @@ $(function(){
 	});
 	
 	// 메일 중복확인 및 유효성 검사 후 인증번호 보내기
-	$("#mailSendBtn").click(function(){
+	$("#mailNumSendBtn").click(function(){
 		var mail = $("#mail").val();
 		
 		if(mail == ""){
 			$("#inputMail").show();
 			$("#mailCheck").hide();
 			$("#mailCheck2").hide();
+			$("#mailCheck3").hide();
 			$("#mailSend").hide();
 			$("#mail").focus();
 			return;
@@ -173,13 +175,14 @@ $(function(){
 					$("#inputMail").hide();
 					$("#mailCheck").hide();
 					$("#mailCheck2").hide();
+					$("#mailCheck3").hide();
 					$("#mailSend").show();
+					mailCheck = mail;
 					$.ajax({
-						url : '${path}/member/mailSend',
+						url : '${path}/member/mailNumSend',
 						type : 'post',
 						data : 'mail='+mail,
 						success : function(data){
-							mailCheck = mail;
 							mailNumCheck = data;
 						}
 					});
@@ -187,12 +190,14 @@ $(function(){
 					$("#inputMail").hide();
 					$("#mailCheck").show();
 					$("#mailCheck2").hide();
+					$("#mailCheck3").hide();
 					$("#mailSend").hide();
 					return;
 				} else if(data == "X"){
 					$("#inputMail").hide();
 					$("#mailCheck").hide();
 					$("#mailCheck2").show();
+					$("#mailCheck3").hide();
 					$("#mailSend").hide();
 					return;
 				}
@@ -240,21 +245,49 @@ $(function(){
 		var bp = $("#bigpoint").val();
 		var mp = $("#middlepoint").val();
 		
-		if(id == "" || id != idCheck){
+		if(id == ""){
 			$("#id").focus();
+			$("#inputId").show();
 			return;
-		} else if(pw == "" || pw != pwCheck){
+		} else if(id != idCheck){
+			$("#id").focus();
+			$("#idCheck3").show();
+			return;
+		} else if(pw == ""){
 			$("#pw").focus();
+			$("#inputPw").show();
+			return;
+		} else if(pw != pwCheck){
+			$("#pw").focus();
+			$("#pwCheck").show();
 			return;
 		} else if(name == ""){
 			$("#name").focus();
 			$("#inputName").show();
 			return;
-		} else if(phone == "" || phone != phoneCheck){
+		} else if(phone == ""){
 			$("#phone").focus();
+			$("#inputPhone").show();
 			return;
-		} else if(mail == "" || mail != mailCheck){
+		} else if(phone != phoneCheck){
+			$("#phone").focus();
+			$("#phoneCheck").show();
+			return;
+		} else if(mail == ""){
 			$("#mail").focus();
+			$("#inputMail").show();
+			$("#mailCheck").hide();
+			$("#mailCheck2").hide();
+			$("#mailCheck3").hide();
+			$("#mailSend").hide();
+			return;
+		} else if(mail != mailCheck){
+			$("#mail").focus();
+			$("#inputMail").hide();
+			$("#mailCheck").hide();
+			$("#mailCheck2").hide();
+			$("#mailCheck3").show();
+			$("#mailSend").hide();
 			return;
 		} else if(mailNum == ""){
 			$("#mailNum").focus();
@@ -325,12 +358,13 @@ $(function(){
 			<p id="inputMail" style="color:red">메일 아이디를 입력해주세요.</p>
 			<p id="mailCheck" style="color:red">이미 가입한 메일입니다.</p>
 			<p id="mailCheck2" style="color:red">메일 형식이 잘못되었습니다.<br>소문자, 숫자, 특수문자('-','_') 가능.</p>
+			<p id="mailCheck3" style="color:red">메일인증을 하십시오.</p>
 			<p id="mailSend" style="color:blue">인증번호가 전송되었습니다.</p>
 		</div>
 	</div>
 	<div class="form-group">
 		<div class="col-lg-10">
-			<input type="button" class="btn btn-primary btn-block btn-lg" id="mailSendBtn" value="인증번호 받기">
+			<input type="button" class="btn btn-primary btn-block btn-lg" id="mailNumSendBtn" value="인증번호 받기">
 		</div>
 	</div>
 	<div class="form-group">
@@ -384,7 +418,7 @@ $(function(){
 	</div>
 	<div class="form-group text-center">
 		<div class="col-lg-10">
-			<input type="button" class="btn btn-primary btn-lg" id="joinBtn" value="회원가입">
+			<input type="button" class="btn btn-primary btn-lg btn-block" id="joinBtn" value="회원가입">
 		</div>
 	</div>
 </form>

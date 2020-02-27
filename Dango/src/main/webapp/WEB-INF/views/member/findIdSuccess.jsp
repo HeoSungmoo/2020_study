@@ -14,6 +14,23 @@
 <script type="text/javascript" src="${path}/resources/js/bootstrap.js"></script>
 </head>
 <body>
+<header>
+	<div class="text-center">
+		<a href="${path}"><img alt="Dango" src="${path}/resources/img/Logo.png"></a>
+	</div>
+</header>
+<form class="form-holizontal">
+	<div>
+		<h1>회원님의 아이디를 메일로 전송하였습니다.</h1>
+	</div>
+	<div>
+		<button onclick="location.href='${path}/member/login.do'" class="btn btn-primary btn-lg">로그인</button>
+		<button onclick="location.href='${path}/member/findPw.do'" class="btn btn-primary btn-lg">비밀번호 찾기</button>
+		<button onclick="location.href='${path}'" class="btn btn-primary btn-lg">홈으로</button>
+	</div>
+</form>
+<footer>
 
+</footer>
 </body>
 </html>

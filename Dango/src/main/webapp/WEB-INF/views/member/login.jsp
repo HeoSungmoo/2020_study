@@ -84,7 +84,7 @@ $(function(){
 	<div class="form-group text-right">
 		<div class="col-lg-10">
 			<a href="${path}/member/findId.do">아이디 찾기</a>
-			<a href="">비밀번호 찾기</a>
+			<a href="${path}/member/findPw.do">비밀번호 찾기</a>
 			<a href="${path}/member/join.do">회원가입</a>
 		</div>
 	</div>

@@ -38,4 +38,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from member
 		where name = #{name} and mail = #{mail}
 	</select>
+	
+	<!-- 비밀번호 찾기 -->
+	<select id="findPw" resultType="int">
+		select count(id)
+		from member
+		where id = #{id} and name = #{name} and mail = #{mail}
+	</select>
 </mapper>

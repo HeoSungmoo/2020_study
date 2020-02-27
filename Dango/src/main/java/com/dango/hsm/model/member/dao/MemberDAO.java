@@ -9,4 +9,5 @@ public interface MemberDAO {
 	public int mailCheck(String mail);// 메일 중복확인
 	public void join(MemberDTO dto);// 회원가입
 	public String findId(MemberDTO dto);// 아이디 찾기
+	public int findPw(MemberDTO dto);// 비밀번호 찾기
 }

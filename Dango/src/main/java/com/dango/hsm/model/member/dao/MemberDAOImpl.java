@@ -42,4 +42,10 @@ public class MemberDAOImpl implements MemberDAO {
 	public String findId(MemberDTO dto) {
 		return sqlSession.selectOne("member.findId", dto);
 	}
+	
+	// 비밀번호 찾기
+	@Override
+	public int findPw(MemberDTO dto) {
+		return sqlSession.selectOne("member.findPw", dto);
+	}
 }
