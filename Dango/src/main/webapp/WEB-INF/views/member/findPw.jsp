@@ -172,7 +172,7 @@ $(function(){
 				if(data == "X"){
 					$("#findPwCheck").show();
 				} else if(data == "O"){
-					
+					location.href="${path}/member/pwChange.do";
 				}
 			}
 		});

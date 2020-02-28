@@ -255,11 +255,20 @@ public class MemberController {
 	
 	// 비밀번호 찾기
 	@RequestMapping("/member/findPw")
-	public String findPw(MemberDTO dto) {
+	@ResponseBody
+	public String findPw(HttpSession session, MemberDTO dto) {
 		if(memberService.findPw(dto) == 1) {
+			session.setAttribute("id", dto.getId());
 			return "O";
 		} else {
 			return "X";
 		}
+	}
+	
+	// 비밀번호 찾기 성공 후 변경 페이지, 정보 수정 비밀번호 변경 페이지
+	@RequestMapping("/member/pwChange.do")
+	public String pwChange(HttpSession session) {
+		System.out.println(session.getAttribute("id"));
+		return "member/pwChange";
 	}
 }
