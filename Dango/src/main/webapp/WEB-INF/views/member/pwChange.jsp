@@ -101,7 +101,7 @@ $(function(){
 			type : 'post',
 			data : 'pw='+pw,
 			success : function(data){
-				location.href = "${path}/member/login.do";
+				location.href = "${path}/member/pwChangeSuccess.do";
 			}
 		});
 	});

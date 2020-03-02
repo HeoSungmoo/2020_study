@@ -19,7 +19,6 @@ public class MemberController {
 	// 로그인 페이지 이동
 	@RequestMapping("/member/login.do")
 	public String login(HttpSession session) {
-		System.out.println(session.getAttribute("guestId"));
 		return memberService.login(session);
 	}
 	
@@ -31,7 +30,7 @@ public class MemberController {
 	}
 	
 	// 로그아웃
-	@RequestMapping("/member/logout")
+	@RequestMapping("/member/logout") 
 	public String logout(HttpSession session) {
 		return memberService.logout(session);
 	}
@@ -140,5 +139,11 @@ public class MemberController {
 	@ResponseBody
 	public void pwChange(HttpSession session, String pw) {
 		memberService.pwChange(session, pw);
+	}
+	
+	// 비밀번호 변경 성공 페이지
+	@RequestMapping("/member/pwChangeSuccess.do")
+	public String pwChangeSuccess() {
+		return "member/pwChangeSuccess";
 	}
 }

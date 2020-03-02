@@ -209,6 +209,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 	
+	// findId 메일 보내기
 	@Override
 	public String mailIdSend(final String mail, final String id) {
 		final MimeMessagePreparator preparator = new MimeMessagePreparator() {
