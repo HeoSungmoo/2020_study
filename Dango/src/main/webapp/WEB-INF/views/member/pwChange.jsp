@@ -13,6 +13,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="${path}/resources/js/bootstrap.js"></script>
 <script>
+
 $(function(){
 	$("#inputPw").hide();
 	$("#pwCheck").hide();
@@ -100,7 +101,7 @@ $(function(){
 			type : 'post',
 			data : 'pw='+pw,
 			success : function(data){
-				
+				location.href = "${path}/member/login.do";
 			}
 		});
 	});
