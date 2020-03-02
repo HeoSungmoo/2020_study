@@ -58,4 +58,10 @@ public class MemberServiceImpl implements MemberService {
 	public int findPw(MemberDTO dto) {
 		return memberDao.findPw(dto);
 	}
+	
+	// 비밀번호 변경
+	@Override
+	public void pwChange(HttpSession session, String pw) {
+		memberDao.pwChange(session, pw);
+	}
 }

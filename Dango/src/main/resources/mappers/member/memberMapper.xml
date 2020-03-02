@@ -45,4 +45,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from member
 		where id = #{id} and name = #{name} and mail = #{mail}
 	</select>
+	
+	<update id="pwChange">
+		update member
+		set pw = #{pw}
+		where id = #{id}
+	</update>
 </mapper>

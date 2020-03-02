@@ -1,6 +1,7 @@
 package com.dango.hsm.model.member.dao;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -47,5 +48,14 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public int findPw(MemberDTO dto) {
 		return sqlSession.selectOne("member.findPw", dto);
+	}
+	
+	// 비밀번호 변경
+	@Override
+	public void pwChange(HttpSession session, String pw) {
+		MemberDTO dto = new MemberDTO();
+		dto.setId((String)session.getAttribute("guestId"));
+		dto.setPw(pw);
+		sqlSession.update("member.pwChange", dto);
 	}
 }

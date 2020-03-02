@@ -1,5 +1,7 @@
 package com.dango.hsm.model.member.dao;
 
+import javax.servlet.http.HttpSession;
+
 import com.dango.hsm.model.member.dto.MemberDTO;
 
 public interface MemberDAO {
@@ -10,4 +12,5 @@ public interface MemberDAO {
 	public void join(MemberDTO dto);// 회원가입
 	public String findId(MemberDTO dto);// 아이디 찾기
 	public int findPw(MemberDTO dto);// 비밀번호 찾기
+	public void pwChange(HttpSession session, String pw);// 비밀번호 변경
 }

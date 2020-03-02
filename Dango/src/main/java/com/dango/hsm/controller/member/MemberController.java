@@ -9,11 +9,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.dango.hsm.model.member.dto.MemberDTO;
 import com.dango.hsm.service.member.MemberService;
@@ -258,7 +255,7 @@ public class MemberController {
 	@ResponseBody
 	public String findPw(HttpSession session, MemberDTO dto) {
 		if(memberService.findPw(dto) == 1) {
-			session.setAttribute("id", dto.getId());
+			session.setAttribute("guestId", dto.getId());
 			return "O";
 		} else {
 			return "X";
@@ -268,7 +265,17 @@ public class MemberController {
 	// 비밀번호 찾기 성공 후 변경 페이지, 정보 수정 비밀번호 변경 페이지
 	@RequestMapping("/member/pwChange.do")
 	public String pwChange(HttpSession session) {
-		System.out.println(session.getAttribute("id"));
-		return "member/pwChange";
+		if(session.getAttribute("guestId") == null) {
+			return "redirect:/";
+		} else {
+			return "member/pwChange";
+		}
+	}
+	
+	@RequestMapping("/member/pwChange")
+	public String pwChange(HttpSession session, String pw) {
+		memberService.pwChange(session, pw);
+		session.invalidate();
+		return "";
 	}
 }
