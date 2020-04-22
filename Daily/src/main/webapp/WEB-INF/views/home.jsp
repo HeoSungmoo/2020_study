@@ -11,7 +11,7 @@
 <body>
 <header><%@ include file="include/header.jsp" %></header>
 <div>
-	<a href="${path}/member/login.do">로그인</a>
+	<a href="${path}/member/login.do">로그인</a>test
 </div>
 <footer><%@ include file="include/footer.jsp" %></footer>
 </body>
