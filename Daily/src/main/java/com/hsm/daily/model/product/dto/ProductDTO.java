@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class ProductDTO {
 
-	private int no;
+	private int product_no;
 	private String thumbnail;
 	private String title;
 	private int price;
@@ -17,11 +17,12 @@ public class ProductDTO {
 	private String id;
 	private Date upload_date;
 	private Date delete_date;
-	public int getNo() {
-		return no;
+	
+	public int getProduct_no() {
+		return product_no;
 	}
-	public void setNo(int no) {
-		this.no = no;
+	public void setProduct_no(int product_no) {
+		this.product_no = product_no;
 	}
 	public String getThumbnail() {
 		return thumbnail;

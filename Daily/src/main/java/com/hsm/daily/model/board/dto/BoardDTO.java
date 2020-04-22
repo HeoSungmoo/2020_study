@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class BoardDTO {
 
-	private int no;
+	private int board_no;
 	private String id;
 	private String title;
 	private String content;
@@ -12,11 +12,12 @@ public class BoardDTO {
 	private Date upload_date;
 	private Date delete_date;
 	private String answer;
-	public int getNo() {
-		return no;
+
+	public int getBoard_no() {
+		return board_no;
 	}
-	public void setNo(int no) {
-		this.no = no;
+	public void setBoard_no(int board_no) {
+		this.board_no = board_no;
 	}
 	public String getId() {
 		return id;
