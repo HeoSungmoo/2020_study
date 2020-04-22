@@ -7,6 +7,14 @@ public class SellerDTO {
 	private String company_phone;
 	private String bank;
 	private String account;
+	private String name;
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getId() {
 		return id;
 	}

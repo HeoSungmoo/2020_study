@@ -1,5 +1,5 @@
 package com.hsm.daily.service.seller;
 
-public class SellerService {
+public interface SellerService {
 
 }

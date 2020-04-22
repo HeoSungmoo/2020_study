@@ -1,5 +1,10 @@
 package com.hsm.daily.model.seller.dao;
 
-public class SellerDAOImpl implements SellerDAO {
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
 
+@Repository
+public class SellerDAOImpl implements SellerDAO {
+	
+	SqlSession sqlSession;
 }
