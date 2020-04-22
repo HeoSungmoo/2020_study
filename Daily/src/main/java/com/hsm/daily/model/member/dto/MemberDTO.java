@@ -11,6 +11,8 @@ public class MemberDTO {
 	private String address;
 	private String birth;
 	private Date join_date;
+	private Date delete_date;
+	
 	public String getId() {
 		return id;
 	}
@@ -59,6 +61,11 @@ public class MemberDTO {
 	public void setJoin_date(Date join_date) {
 		this.join_date = join_date;
 	}
-	
+	public Date getDelete_date() {
+		return delete_date;
+	}
+	public void setDelete_date(Date delete_date) {
+		this.delete_date = delete_date;
+	}
 	
 }
